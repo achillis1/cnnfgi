@@ -44,6 +44,7 @@ class EmployeeEditForm(forms.ModelForm):
                     Field('employee_first_name', css_class="input-sm", wrapper_class="col-sm-4"),
                     Field('employee_last_name', css_class="input-sm", wrapper_class="col-sm-4"),
                     Field('employee_email', css_class="input-sm", wrapper_class="col-sm-4"),
+                    ),
             )
         )
 

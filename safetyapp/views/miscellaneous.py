@@ -1,4 +1,4 @@
-from jeaapp.forms import PasswordResetForm
+from safetyapp.forms import PasswordResetForm
 from django.contrib.auth.tokens import default_token_generator
 from django.core.urlresolvers import reverse
 from django.http import HttpResponseRedirect, QueryDict

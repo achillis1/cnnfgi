@@ -12,10 +12,9 @@ from django.http import HttpResponseRedirect
 from django.shortcuts import render, get_object_or_404
 from django.utils import timezone
 
-from jeaapp.models import Customer, TradeAlly, Project, Premise, Measure, Program, CustomerDatabaseFile, Contract, ClientPO, Invoice, FiscalYear
-from jeaapp.forms import MainPageFileUploadForm
-from jeaapp.functions import *
-from jeaapp.dependent_functions import upload_customer_database, sum_financials_and_savings
+from safetyapp.models import Employee, SafetyCourse
+from safetyapp.forms import FileUploadForm
+from safetyapp.functions import *
 
 
 if settings.DJANGO_ENV != 'development':
@@ -314,6 +313,6 @@ def index(request):
         context = {}
         messages.error(request, 'Unable to process request! Please try again.')
     
-    template_name = 'jeaapp/general/index.html'
+    template_name = 'safetyapp/general/index.html'
     return render(request, template_name, context)
 

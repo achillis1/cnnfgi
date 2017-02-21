@@ -1,0 +1,26 @@
+{% extends "admin/base.html" %}
+{% load i18n %}
+
+{% block title %}{{ title }} | {{ site_title|default:_('Nexant Safety Dashboard Admin') }}{% endblock %}
+
+{% block branding %}
+<h1 id="site-name"><a href="{% url 'admin:index' %}">Nexant Safety Dashboard Admin</a></h1>
+{% endblock %}
+
+{% block userlinks %}
+    {% if site_url %}
+        <a href="{{ site_url }}">{% trans 'view site' %}</a> /
+    {% endif %}
+    {% if user.is_active and user.is_staff %}
+        {% url 'django-admindocs-docroot' as docsroot %}
+        {% if docsroot %}
+            <a href="{{ docsroot }}">{% trans 'Documentation' %}</a> /
+        {% endif %}
+    {% endif %}
+    {% if user.has_usable_password %}
+    <a href="{% url 'password_reset' %}">{% trans 'reset password' %}</a> /
+    {% endif %}
+    <a href="{% url 'admin:logout' %}">{% trans 'log out' %}</a>
+{% endblock %}
+
+{% block nav-global %}{% endblock %}

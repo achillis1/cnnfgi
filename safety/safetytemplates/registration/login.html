@@ -1,0 +1,36 @@
+{% extends "app_base.html" %}
+
+{% block navbar-nav %}
+    <ul class="nav navbar-nav">
+        <li><a href="{% url 'index' %}">Home > </a></li>
+    </ul>
+{% endblock %}
+
+{% block body %}
+
+<div class="container">
+{% if form.errors %}
+<p>Your username and password didn't match. Please try again.</p>
+{% else %}
+<p>Welcome to Nexant's Safety Dashboard!  Please log in...</p>
+{% endif %}
+
+<form method="post" action="{% url 'login' %}">
+  {% csrf_token %}
+  <div class="form-item">
+    {{ form.username.label_tag }}
+    {{ form.username }}
+  </div>
+  <div class="form-item">
+    {{ form.password.label_tag }}
+    <input type="password" class="input-text" name="password" id="id_password">
+  </div>
+  <div class="form-item actions">
+    <input type="submit" value="login" />
+    <input type="hidden" name="next" value="{{ next }}" />
+  </div>
+</form>
+
+</div>
+
+{% endblock %}

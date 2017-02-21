@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+{% load static %}
+{% load humanize %}
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    {% block title %}<title>Nexant Safety Dashboard</title>{% endblock %}
+    <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+    <link href="{% static 'app/css/bootstrap.css' %}" rel="stylesheet">
+    <link href="{% static 'app/css/bootstrap.min.css' %}" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/jquery.timepicker/1.3.7/jquery.timepicker.css">
+
+  </head>
+
+    {% block navbar %}
+    <div class="navbar navbar-default">
+      <div class="container-fluid">
+        <div class="navbar-header">
+          <a href="/" class="navbar-brand">Nexant Safety Dashboard</a>
+          <button class="navbar-toggle" type="button" data-toggle="collapse" data-target="#navbar-main">
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+        </div>
+        <div class="navbar-collapse collapse" id="navbar-main">
+          {% block navbar-nav %}  <!-- below are samples of options; this section overwritten by each page template -->
+          <!--<ul class="nav navbar-nav">-->
+            <!--<li class="dropdown">-->
+              <!--<a class="dropdown-toggle" data-toggle="dropdown" href="#" id="themes">Themes <span class="caret"></span></a>-->
+              <!--<ul class="dropdown-menu" aria-labelledby="themes">-->
+                <!--<li><a href="../default/">Default</a></li>-->
+                <!--<li class="divider"></li>-->
+                <!--<li><a href="../cerulean/">Cerulean</a></li>-->
+                <!--<li><a href="../cosmo/">Cosmo</a></li>-->
+                <!--<li><a href="../cyborg/">Cyborg</a></li>-->
+                <!--<li><a href="../darkly/">Darkly</a></li>-->
+              <!--</ul>-->
+            <!--</li>-->
+            <!--<li>-->
+              <!--<a href="../help/">Help</a>-->
+            <!--</li>-->
+            <!--<li class="dropdown">-->
+              <!--<a class="dropdown-toggle" data-toggle="dropdown" href="#" id="download">Sandstone <span class="caret"></span></a>-->
+              <!--<ul class="dropdown-menu" aria-labelledby="download">-->
+                <!--<li><a href="http://jsfiddle.net/bootswatch/m0nv7a0o/">Open Sandbox</a></li>-->
+                <!--<li class="divider"></li>-->
+                <!--<li><a href="./bootstrap.min.css">bootstrap.min.css</a></li>-->
+                <!--<li><a href="./bootstrap.css">bootstrap.css</a></li>-->
+                <!--<li class="divider"></li>-->
+                <!--<li><a href="./variables.less">variables.less</a></li>-->
+                <!--<li><a href="./bootswatch.less">bootswatch.less</a></li>-->
+                <!--<li class="divider"></li>-->
+                <!--<li><a href="./_variables.scss">_variables.scss</a></li>-->
+                <!--<li><a href="./_bootswatch.scss">_bootswatch.scss</a></li>-->
+              <!--</ul>-->
+            <!--</li>-->
+          <!--</ul>-->
+          {% endblock %}
+        
+          {% block navbar-right %}
+          <ul class="nav navbar-nav navbar-right">
+            <li><a href="/admin/">admin</a></li>
+            <li><a href="/user-account/password/reset/">reset password</a></li>
+              {% if user.is_authenticated %}
+                    <li><a href="{% url 'logout' %}">log out</a></li>
+              {% else %}
+                    <li><a href="{% url 'login' %}">log in</a></li>
+              {% endif %}
+
+          </ul>
+          {% endblock %}
+        </div>
+      </div>
+    </div>
+    {% endblock %}
+
+    {% block messages %}
+      {% for message in messages %}
+          {% if 'success' in message.tags %}
+
+              <div class="alert alert-success fade in">
+                  <a class="close" href="#" data-dismiss="alert">×</a>
+                  <strong>Success!</strong>
+
+                      {{ message|capfirst }}
+
+              </div>
+          {% endif %}
+
+          {% if 'error' in message.tags %}
+              <div class="alert alert-danger fade in">
+                  <a class="close" href="#" data-dismiss="alert">×</a>
+                  <strong>Error!</strong>
+
+                      {{ message|capfirst }}
+
+              </div>
+          {% endif %}
+
+          {% if 'info' in message.tags %}
+              <div class="alert alert-info fade in">
+                  <a class="close" href="#" data-dismiss="alert">×</a>
+                  <strong>INFO!</strong>
+
+                      {{ message|capfirst }}
+
+              </div>
+          {% endif %}
+
+          {% if 'warning' in message.tags %}
+              <div class="alert alert-warning fade in">
+                  <a class="close" href="#" data-dismiss="alert">×</a>
+                  <strong>WARNING!</strong>
+
+                      {{ message|capfirst }}
+
+              </div>
+          {% endif %}
+      {% endfor %}
+  {% endblock messages %}
+
+  <body>
+
+  <div class="container">
+    <!--{% block content %}-->
+        {% block body %}
+        {% endblock %}
+    <!--{% endblock %}-->
+  </div>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+    <script src="{% static 'app/js/bootstrap.js' %}"></script>
+    <script src="{% static 'app/js/bootstrap.min.js' %}"></script>
+    <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+
+    <script src="https://cdn.jsdelivr.net/jquery.timepicker/1.3.7/jquery.timepicker.min.js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/jquery.timepicker/1.3.7/jquery.timepicker.css">
+    <script src="https://cdn.jsdelivr.net/jquery.timepicker/1.3.7/jquery.timepicker.js"></script>
+
+      <!--datatable-->
+    <link rel="stylesheet" href="//cdn.datatables.net/1.10.12/css/jquery.dataTables.min.css">
+    <script src="//cdn.datatables.net/1.10.12/js/jquery.dataTables.min.js"></script>
+
+    <script>
+    $('#mytable').dataTable({
+        aLengthMenu: [
+            [5, 10, 25, 50, 100, 200, -1],
+            [5, 10, 25, 50, 100, 200, "All"]
+        ],
+        iDisplayLength: 5,
+        "order": [[ 0, "desc" ]]
+    });
+    
+    $(document).ready(function() {
+        $('.datepicker').datepicker({ dateFormat: 'm/d/yy' });
+    });
+    
+    $(document).ready(function() {
+        $('.mytimepicker').timepicker({ 'timeFormat': 'H:i:s' });
+    });
+    
+    $(document).ready(function() {
+        $('.myreadonly').prop("disabled", true); 
+    });
+    
+    $(document).ready(function() {
+        $('.myform').on('submit', function() {
+            $('.myreadonly').prop('disabled', false);
+        });
+    });
+    </script>
+    
+    <script type="text/javascript">
+      var ps = "{{ project.status }}"
+    </script>
+
+    <script>
+      $(document).ready(function() {
+          // window.alert(ps);
+          // console.log(ps)
+          var active_tab_selector;
+          if (ps == "Requested") {
+            // console.log("in requested")
+            active_tab_selector = $('.nav-tabs > li.active');
+            active_tab_selector.removeClass('active');
+            active_tab_selector.next('li').addClass('active');
+            active_tab_selector.next('li').find('a').trigger('click');
+            $('#request').removeClass('active');
+            $('#schedule').addClass('active');
+          }
+          else if (ps == "Scheduled") {
+            // console.log("in scheduled")
+            active_tab_selector = $('.nav-tabs > li.active');
+            active_tab_selector.removeClass('active');
+            active_tab_selector.next('li').next('li').addClass('active');
+            active_tab_selector.next('li').next('li').find('a').trigger('click');
+            $('#request').removeClass('active');
+            $('#audit').addClass('active');
+          }
+          else if (ps == "Audited") {
+            // console.log("in Audited")
+            active_tab_selector = $('.nav-tabs > li.active');
+            active_tab_selector.removeClass('active');
+            active_tab_selector.next('li').next('li').next('li').addClass('active');
+            active_tab_selector.next('li').next('li').next('li').find('a').trigger('click');
+            $('#requested').removeClass('active');
+            $('#follow-up').addClass('active');
+          }
+          else if (ps == "Complete") {
+            // console.log("in completed")
+            active_tab_selector = $('.nav-tabs > li.active');
+            active_tab_selector.removeClass('active');
+            active_tab_selector.next('li').next('li').next('li').next('li').addClass('active');
+            active_tab_selector.next('li').next('li').next('li').next('li').find('a').trigger('click');
+            $('#requested').removeClass('active');
+            $('#prescriptive-project').addClass('active');
+          }
+          else {
+          }
+        });
+    </script>
+
+    <style type="text/css">
+    .h-divider{
+     margin-top:11px;
+     margin-bottom:20px;
+     height:1px;
+     width:100%;
+     border-top:1px solid gray;
+    }
+    </style>
+    
+  </body>
+
+</html>
+

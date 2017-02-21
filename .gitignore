@@ -1,0 +1,11 @@
+venv
+condaenv
+*.pyc
+Thumbs.db
+staticfiles
+log/*.log
+dump.json
+credentials
+*~
+.idea/
+*.bak

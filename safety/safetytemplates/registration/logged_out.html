@@ -1,0 +1,17 @@
+{% extends "app_base.html" %}
+
+{% load i18n %}
+
+{% block navbar-nav %}
+    <ul class="nav navbar-nav">
+        <li><a href="{% url 'index' %}">Home > </a></li>
+    </ul>
+{% endblock %}
+
+{% block content %}
+
+<p>{% trans "Thanks for spending some quality time with the site today." %}</p>
+
+<p><a href="{% url 'login' %}">{% trans 'Log in again' %}</a></p>
+
+{% endblock %}

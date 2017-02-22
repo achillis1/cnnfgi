@@ -7,10 +7,14 @@ from safetyapp.models import Employee, SafetyCourse
 @admin.register(Employee)
 class EmployeeAdmin(VersionAdmin):
     fieldsets = [
-        ('Information', {'fields': ['employee_number', 'employee_first_name', 'employee_last_name']}),
+        ('Information', {'fields': ['user', 'employee_number', 'first_name', 'last_name',
+                                    'email', 'student_number', 'is_active', 'is_enabled']}),
     ]
-    list_display = ('id', 'employee_number', 'employee_first_name', 'employee_last_name')
-    search_fields = ['id', 'employee_number', 'employee_first_name', 'employee_last_name']
+    list_display = ('id', 'user', 'employee_number', 'first_name', 'last_name',
+                    'email', 'student_number', 'is_active', 'is_enabled')
+    search_fields = ['id', 'employee_number', 'first_name', 'last_name',
+                     'email', 'student_number', 'is_active', 'is_enabled']
+    list_filter = ['is_active', 'is_enabled']
     
 @admin.register(SafetyCourse)
 class SafetyCourseAdmin(VersionAdmin):

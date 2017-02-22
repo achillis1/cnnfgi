@@ -8,6 +8,7 @@ from openpyxl import load_workbook
 from django.db import models
 from django.db.models import Q, Sum
 from django.utils import timezone
+from django.contrib.auth.models import User
 from django.core.files.storage import default_storage
 
 from safetyapp.functions import *
@@ -22,13 +23,18 @@ class Employee(models.Model):
 	# fields
     employee_number = models.CharField(blank=True, max_length=255)
     student_number = models.CharField(blank=True, max_length=255)
-    employee_first_name = models.CharField(blank=True, max_length=255)
-    employee_last_name = models.CharField(blank=True, max_length=255)
-    employee_email = models.CharField(blank=True, max_length=255)
+    first_name = models.CharField(blank=True, max_length=255)
+    last_name = models.CharField(blank=True, max_length=255)
+    email = models.CharField(blank=True, max_length=255)
+    is_active = models.BooleanField(blank = True, default = False)
+    is_enabled = models.BooleanField(blank = True, default = False)
+    
+    # relationships
+    user = models.OneToOneField(User, related_name='employee', null=True)
     
     def __str__(self):
-        if self.employee_first_name is not None and self.employee_last_name is not None:
-            return self.employee_last_name + ', ' + self.employee_first_name + ' (' + self.employee_number + ')'
+        if self.first_name is not None and self.last_name is not None:
+            return self.last_name + ', ' + self.first_name + ' (' + self.employee_number + ')'
         else:
             return self.employee_number
         

@@ -62,7 +62,9 @@
         
           {% block navbar-right %}
           <ul class="nav navbar-nav navbar-right">
-            <li><a href="/admin/">admin</a></li>
+            {% if user.is_staff %}
+                <li><a href="/admin/">admin</a></li>
+            {% endif %}
             <li><a href="/user-account/password/reset/">reset password</a></li>
               {% if user.is_authenticated %}
                     <li><a href="{% url 'logout' %}">log out</a></li>

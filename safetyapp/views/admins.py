@@ -23,46 +23,35 @@ if settings.DJANGO_ENV != 'development':
     from rq import Queue
     from worker import conn
 
-def check_permission(request, employee):
-    #---if User is admin, doesn't matter if they're viewing their own or someone else's Employee pages
-    safety_dashboard_admins = Group.objects.get(name = 'safety_dashboard_admins')
-    if safety_dashboard_admins in request.user.groups.all():
-        return True
-    else: #---check that User and Employee go together if User is not admin
-        try:
-            if Employee.objects.get(user = request.user).id == employee.id: # if User is requesting their own Employee pages...
-                return True
-            else: # otherwise do not let a non-admin Employee access another Employee's pages
-                return False
-        except:
-            return False
-
-def check_admin(request):
+def check_permission(request):
+    #---check that user is an admin
     safety_dashboard_admins = Group.objects.get(name = 'safety_dashboard_admins')
     if safety_dashboard_admins in request.user.groups.all():
         return True
     else:
         return False
-
-@login_required
-def index(request, employee_id):
-    current_user = request.user
-    employee = get_object_or_404(Employee, pk=employee_id)
-    if check_permission(request, employee) is False:
-        raise PermissionDenied
         
+@login_required
+def index(request):
+    current_user = request.user
+    if check_permission(request) is False:
+        raise PermissionDenied
+    
     try:
+        if Employee.objects.filter(user = current_user).count() == 1:
+            employee = Employee.objects.get(user = current_user)
+        else:
+            employee = None
         if request.method == 'GET':            
+            
             context = {
                 'employee':     employee,
-                'is_admin':     check_admin(request),
             }
     
     except:
         context = {}
         messages.error(request, 'Unable to process request! Please try again.')
     
-    template_name = 'safetyapp/employees/index.html'
+    template_name = 'safetyapp/admins/index.html'
     return render(request, template_name, context)
-
 

@@ -2,4 +2,5 @@
 from .miscellaneous import *
 from .main import *
 from .employees import *
+from .admins import *
 

@@ -19,10 +19,11 @@ urlpatterns = [
             {'post_reset_redirect' : '/user-account/password/done/'}, name='password_reset_confirm'),
     url(r'^user-account/password/done/$', auth_views.password_reset_complete),
     
+    # Admins
+    url(r'^admin_index/$',                      views.admins.index,             name='admins_index'),
+
     # Employees
-    url(r'^employees/add/$',                            views.employees.add,            name='employees_add'),
-    url(r'^employees/list/$',                           views.employees.employees_list, name='employees_list'),
-    url(r'^employees/(?P<customer_id>\d+)/edit/$',      views.employees.edit,           name='employees_edit'),
+    url(r'^employees/(?P<employee_id>\d+)/$',   views.employees.index,          name='employees_index'),
 
 ]
 

@@ -31,6 +31,7 @@ class Employee(models.Model):
     
     # relationships
     user = models.OneToOneField(User, related_name='employee', null=True)
+    supervisor = models.ForeignKey('Employee', null=True) # doesn't use on_delete=models.CASCADE since deleting supervisor should not delete direct reports
     
     def __str__(self):
         if self.first_name is not None and self.last_name is not None:

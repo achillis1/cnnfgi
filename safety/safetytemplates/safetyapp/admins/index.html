@@ -11,10 +11,86 @@
 {% block body %}
 
 <div class="container">
-    <div class="row" > 
-        <div class="col-lg-4 col-sm-6" > 
-            Welcome Admin!
+    
+    <div class="row">
+    
+        <div class="col-lg-4 col-sm-4 col-xs-4">
+            <div class="form-group">
+                <form enctype="multipart/form-data" class="form-horizontal" action="" method="post" novalidate="">
+                    {% csrf_token %}
+                    <div class="row">
+                        <input size=25 name="box_number" value="" type="text" placeholder="enter bill account #">
+                    </div>
+                    <div class="row">
+                        <button type="submit" class="btn btn-primary" name="add_project">Add Project</button>
+                    </div>
+                </form>
+            </div>
+            
+            
+            <div class="row"><div class="h-divider"></div></div>
+
+            <div class="row">
+                <div class="form-group">
+                    <form enctype="multipart/form-data" class="entry" action="" method="post">
+                        {% csrf_token %}
+                        <input class="btn btn-primary" value="Create Report" name="create_report" type="submit">
+<!--                        <button type="submit" class="btn btn-primary" name="project_list">Project List</button>-->
+                    </form>
+                </div>
+            </div>
+
+            <div class="row"><div class="h-divider"></div></div>
+
+            <div class="row">
+                Browse for a file, then press one of the buttons below.
+                <form enctype="multipart/form-data" class="entry" action="" method="post">
+                {% csrf_token %}
+                {{ file_form.non_field_errors }}
+                {{ file_form.file_field }}<br>
+                {{ file_form.file_field.errors }}
+                <div class="form-group">
+                    <input class="btn btn-primary" value="Load Batch" name="load_batch_file" type="submit">
+                    <input class="btn btn-primary" value="Load Completed" name="load_completed_report" type="submit">
+                    <input class="btn btn-primary" value="Load Active" name="load_active_report" type="submit">
+                </div>
+                <div class="form-group">
+                    <input class="btn btn-primary" value="Load Inspect. Stats" name="load_inspection_stats_file" type="submit">
+                </div>
+                </form>
+            </div>
+            
         </div>
+
+        <div class="col-lg-8 col-sm-8 col-xs-8">
+          <div class="table-responsive">
+          <table class="table table-striped table-bordered table-condensed" id="mytable">
+            <thead>
+              <tr class = "warning">
+                <th>Name/ID</th>
+                <th>Student #</th>
+                <th>Email</th>
+                <th>Active</th>
+                <th>Enabled</th>
+                <th>Supervisor</th>
+              </tr>
+            </thead>
+            <tbody>
+            {% for employee in employee_list %}
+                    <tr class = "success">
+                        <td><a href="{% url 'employees_index' employee.id %}">{{ employee.last_name }}, {{ employee.first_name }} ({{ employee.employee_number }})</a></td>
+                        <td>{{ employee.student_number }}</td>
+                        <td>{{ employee.email }}</td>
+                        <td>{{ employee.is_active }}</td>
+                        <td>{{ employee.is_enabled }}</td>
+                        <td>{{ employee.supervisor }}</td>
+                    </tr>
+            {% endfor %}
+            </tbody>
+          </table>
+          </div>
+        </div>
+        
     </div>
 </div>
 

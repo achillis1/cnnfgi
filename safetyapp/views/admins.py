@@ -45,7 +45,8 @@ def index(request):
         if request.method == 'GET':            
             
             context = {
-                'employee':     employee,
+                'employee':         employee,
+                'employee_list':    Employee.objects.all(),
             }
     
     except:

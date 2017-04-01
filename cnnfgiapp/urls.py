@@ -2,7 +2,7 @@ from django.conf import settings
 from django.conf.urls import include, url
 from django.contrib.auth import views as auth_views
 
-from safetyapp import views
+from cnnfgiapp import views
 
 urlpatterns = [
     url(r'^$',          views.main.index,              name='index'),

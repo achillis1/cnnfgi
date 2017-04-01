@@ -13,9 +13,9 @@ from django.http import HttpResponseRedirect
 from django.shortcuts import render, get_object_or_404
 from django.utils import timezone
 
-from safetyapp.models import Employee, SafetyCourse
-from safetyapp.forms import FileUploadForm
-from safetyapp.functions import *
+from cnnfgiapp.models import Employee, SafetyCourse
+from cnnfgiapp.forms import FileUploadForm
+from cnnfgiapp.functions import *
 
 
 if settings.DJANGO_ENV != 'development':
@@ -26,18 +26,18 @@ if settings.DJANGO_ENV != 'development':
 def index(request):
     current_user = request.user
     try:
-        safety_dashboard_admins = Group.objects.get(name = 'safety_dashboard_admins')
+        cnnfgi_dashboard_admins = Group.objects.get(name = 'cnnfgi_dashboard_admins')
         if Employee.objects.filter(user = current_user).count() == 1:
             employee = Employee.objects.get(user = current_user)
             return HttpResponseRedirect('/employees/%s/' % employee.id)
-        elif safety_dashboard_admins in current_user.groups.all():
+        elif cnnfgi_dashboard_admins in current_user.groups.all():
             return HttpResponseRedirect('/admin_index/')
         else:
             messages.error(request, """It appears you're neither an employee nor a system administrator!""")
-            template_name = 'safetyapp/dead_end.html'
+            template_name = 'cnnfgiapp/dead_end.html'
             return render(request, template_name, {})
     except:
         messages.error(request, 'Unable to direct your request to the right place!')
-        template_name = 'safetyapp/dead_end.html'
+        template_name = 'cnnfgiapp/dead_end.html'
         return render(request, template_name, {})
 

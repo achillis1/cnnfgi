@@ -11,7 +11,7 @@ from django.utils import timezone
 from django.contrib.auth.models import User
 from django.core.files.storage import default_storage
 
-from safetyapp.functions import *
+from cnnfgiapp.functions import *
 
 
 class Employee(models.Model):

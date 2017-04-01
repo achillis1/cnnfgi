@@ -14,9 +14,9 @@ from django.http import HttpResponseRedirect
 from django.shortcuts import render, get_object_or_404
 from django.utils import timezone
 
-from safetyapp.models import Employee, SafetyCourse
-from safetyapp.forms import FileUploadForm
-from safetyapp.functions import *
+from cnnfgiapp.models import Employee, SafetyCourse
+from cnnfgiapp.forms import FileUploadForm
+from cnnfgiapp.functions import *
 
 
 if settings.DJANGO_ENV != 'development':
@@ -25,8 +25,8 @@ if settings.DJANGO_ENV != 'development':
 
 def check_permission(request, employee):
     #---if User is admin, doesn't matter if they're viewing their own or someone else's Employee pages
-    safety_dashboard_admins = Group.objects.get(name = 'safety_dashboard_admins')
-    if safety_dashboard_admins in request.user.groups.all():
+    cnnfgi_dashboard_admins = Group.objects.get(name = 'cnnfgi_dashboard_admins')
+    if cnnfgi_dashboard_admins in request.user.groups.all():
         return True
     else: #---check that User and Employee go together if User is not admin
         try:
@@ -38,8 +38,8 @@ def check_permission(request, employee):
             return False
 
 def check_admin(request):
-    safety_dashboard_admins = Group.objects.get(name = 'safety_dashboard_admins')
-    if safety_dashboard_admins in request.user.groups.all():
+    cnnfgi_dashboard_admins = Group.objects.get(name = 'cnnfgi_dashboard_admins')
+    if cnnfgi_dashboard_admins in request.user.groups.all():
         return True
     else:
         return False
@@ -62,7 +62,7 @@ def index(request, employee_id):
         context = {}
         messages.error(request, 'Unable to process request! Please try again.')
     
-    template_name = 'safetyapp/employees/index.html'
+    template_name = 'cnnfgiapp/employees/index.html'
     return render(request, template_name, context)
 
 

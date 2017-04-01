@@ -14,9 +14,9 @@ from django.http import HttpResponseRedirect
 from django.shortcuts import render, get_object_or_404
 from django.utils import timezone
 
-from safetyapp.models import Employee, SafetyCourse
-from safetyapp.forms import FileUploadForm
-from safetyapp.functions import *
+from cnnfgiapp.models import Employee, SafetyCourse
+from cnnfgiapp.forms import FileUploadForm
+from cnnfgiapp.functions import *
 
 
 if settings.DJANGO_ENV != 'development':
@@ -25,8 +25,8 @@ if settings.DJANGO_ENV != 'development':
 
 def check_permission(request):
     #---check that user is an admin
-    safety_dashboard_admins = Group.objects.get(name = 'safety_dashboard_admins')
-    if safety_dashboard_admins in request.user.groups.all():
+    cnnfgi_dashboard_admins = Group.objects.get(name = 'cnnfgi_dashboard_admins')
+    if cnnfgi_dashboard_admins in request.user.groups.all():
         return True
     else:
         return False
@@ -53,6 +53,6 @@ def index(request):
         context = {}
         messages.error(request, 'Unable to process request! Please try again.')
     
-    template_name = 'safetyapp/admins/index.html'
+    template_name = 'cnnfgiapp/admins/index.html'
     return render(request, template_name, context)
 

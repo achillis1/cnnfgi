@@ -9,10 +9,10 @@ SITE_ROOT = os.path.dirname(os.path.realpath(__file__))
 PROJECT_DIR = os.path.dirname(__file__)
 PROJECT_PATH = os.path.dirname(os.path.abspath(__file__))
 if DJANGO_ENV == 'production':
-    BASE_URL = 'safety.nexantservicecenter.com'
+    BASE_URL = 'cnnfgi.herokuapp.com'
     PROTOCOL = 'http'
 elif DJANGO_ENV == 'staging':
-    BASE_URL = 'safety-staging.nexantservicecenter.com'
+    BASE_URL = 'cnnfgi-staging.herokuapp.com'
     PROTOCOL = 'http'
 else:
     BASE_URL = '127.0.0.1:8000'
@@ -81,13 +81,11 @@ else:
 
 
 if DJANGO_ENV in ['development', 'staging']:
-    ALLOWED_HOSTS = ['.nexantsafety-staging.herokuapp.com',
-                     '.safety-staging.nexantservicecenter.com',
+    ALLOWED_HOSTS = ['.cnnfgi-staging.herokuapp.com',
                      '127.0.0.1',
                      ]
 else:
-    ALLOWED_HOSTS = ['.nexantsafety-production.herokuapp.com',
-                     'safety.nexantservicecenter.com',
+    ALLOWED_HOSTS = ['.cnnfgi.herokuapp.com',
                      ]
 
 
@@ -102,7 +100,7 @@ INSTALLED_APPS = (
     'django.contrib.admin',
     # Uncomment the next line to enable admin documentation:
     # 'django.contrib.admindocs',
-    'safetyapp',
+    'cnnfgiapp',
     'storages',
     'django.contrib.humanize',
     'haystack',
@@ -151,12 +149,12 @@ else:
   EMAIL_HOST_PASSWORD = EMAIL_PASSWORD
   EMAIL_PROVIDER = 'sendgrid'
 
-ROOT_URLCONF = 'safety.urls'
+ROOT_URLCONF = 'cnnfgi.urls'
 
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [os.path.join(SITE_ROOT, 'safetytemplates')],
+        'DIRS': [os.path.join(SITE_ROOT, 'cnnfgitemplates')],
         #'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -178,7 +176,7 @@ TEMPLATES = [
 ]
 
 
-WSGI_APPLICATION = 'safety.wsgi.application'
+WSGI_APPLICATION = 'cnnfgi.wsgi.application'
 
 
 # Database

@@ -4,9 +4,9 @@ from django.contrib.auth.models import Group, User
 from django.core.management.base import BaseCommand
 from django.template.loader import render_to_string
 
-from safety.settings import EMAIL_PROVIDER
-from safetyapp.models import Project
-from safetyapp.management.commands import SendEmail_Base
+from cnnfgi.settings import EMAIL_PROVIDER
+from cnnfgiapp.models import Project
+from cnnfgiapp.management.commands import SendEmail_Base
 
 #python manage.py   SendEmail     email    content_id      general_param
 #                 (mgt command)   (To:)    (various)         (various)

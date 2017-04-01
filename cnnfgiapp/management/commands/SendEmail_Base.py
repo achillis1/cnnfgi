@@ -1,5 +1,5 @@
 import sendgrid, pdb
-from safety.settings import EMAIL_USERNAME, EMAIL_PASSWORD
+from cnnfgi.settings import EMAIL_USERNAME, EMAIL_PASSWORD
 
 def Send(to_email,
          subject,
@@ -37,7 +37,7 @@ def Send(to_email,
         if from_email is not None:
             message.set_from(from_email)
         else:
-            message.set_from('Nexant Safety Dashboard <safety@nexant.com>')
+            message.set_from('Nexant Safety Dashboard <cnnfgi@nexant.com>')
 
         # begin checking for optional fields and set them if they exist
         # initiate error message variables

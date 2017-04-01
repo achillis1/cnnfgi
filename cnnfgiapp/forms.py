@@ -8,9 +8,9 @@ from django.utils.http import urlsafe_base64_encode
 from django.utils.encoding import force_bytes
 from django.template.loader import render_to_string
 
-from safety.settings import EMAIL_PROVIDER
-from safetyapp.management.commands import SendEmail_Base
-from safetyapp.models import Employee, SafetyCourse
+from cnnfgi.settings import EMAIL_PROVIDER
+from cnnfgiapp.management.commands import SendEmail_Base
+from cnnfgiapp.models import Employee, SafetyCourse
 
 from crispy_forms.helper import FormHelper
 from crispy_forms.layout import Layout, Fieldset, Div, Submit, HTML, Button, Row, Field, ButtonHolder

@@ -3,8 +3,8 @@ import urllib.request
 from decimal import Decimal
 from io import TextIOWrapper
 
-from safetyapp.models import Employee, SafetyCourse
-from safetyapp.functions import *
+from cnnfgiapp.models import Employee, SafetyCourse
+from cnnfgiapp.functions import *
 
 
 # functions placed in this file are downstream of model definitions and thus cannot be loaded into model definition files

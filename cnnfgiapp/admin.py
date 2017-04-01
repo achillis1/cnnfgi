@@ -2,7 +2,7 @@ from django.contrib import admin
 from reversion.admin import VersionAdmin
 
 # Register your models here.
-from safetyapp.models import Employee, SafetyCourse, Hazard, Project
+from cnnfgiapp.models import Employee, SafetyCourse, Hazard, Project
 
 @admin.register(Employee)
 class EmployeeAdmin(VersionAdmin):

@@ -10,7 +10,7 @@ urlpatterns = [
     url(r'^admin/', include(admin.site.urls)),
 
     # Examples:
-    url(r'', include('safetyapp.urls')),
+    url(r'', include('cnnfgiapp.urls')),
 
 ]
 

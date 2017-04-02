@@ -14,7 +14,7 @@ from django.contrib.auth.models import Group, User
 from django.core.management.base import BaseCommand
 from django.template.loader import render_to_string
 
-from cnnfgi.settings import EMAIL_PROVIDER
+from cnnfgi.settings import EMAIL_PROVIDER, PHANTOMJS_PATH
 from cnnfgiapp.models import Fgi
 from cnnfgiapp.management.commands import SendEmail_Base
 
@@ -27,7 +27,9 @@ class Command(BaseCommand):
         pass
 
     def handle(self, *args, **options):
-        phantomjs_path = "/usr/local/bin/phantomjs"
+        import pdb
+        pdb.set_trace()
+        phantomjs_path = PHANTOMJS_PATH + "/phantomjs"
         driver = webdriver.PhantomJS(executable_path=phantomjs_path, service_log_path=os.path.devnull)
         driver.wait = WebDriverWait(driver, 5)
         driver.get("http://money.cnn.com/data/fear-and-greed/")

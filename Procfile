@@ -1,2 +1,2 @@
-web: gunicorn safety.wsgi --log-file -
+web: gunicorn cnnfgi.wsgi --log-file -
 worker: python worker.py

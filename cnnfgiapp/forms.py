@@ -10,7 +10,7 @@ from django.template.loader import render_to_string
 
 from cnnfgi.settings import EMAIL_PROVIDER
 from cnnfgiapp.management.commands import SendEmail_Base
-from cnnfgiapp.models import Employee, SafetyCourse
+from cnnfgiapp.models import Fgi
 
 from crispy_forms.helper import FormHelper
 from crispy_forms.layout import Layout, Fieldset, Div, Submit, HTML, Button, Row, Field, ButtonHolder
@@ -20,38 +20,10 @@ class FileUploadForm(forms.Form):
     """Form to upload files."""
     file_field = forms.FileField(required=False, widget=forms.ClearableFileInput(attrs={'multiple': True}))
 
-class EmployeeEditForm(forms.ModelForm):
-    """Form to update Employee attributes."""
-    class Meta:
-        model = Employee        
-        fields = '__all__'
-
-    def __init__(self, *args, **kwargs):
-        super(EmployeeEditForm, self).__init__(*args, **kwargs)
-        self.helper = FormHelper()
-        self.helper.form_tag = True
-        self.helper.form_id = 'id-employee-data-form'
-        self.helper.form_method = 'post'
-        self.helper.add_input(Submit('submit', 'Submit', css_class='btn-success'))
-        self.helper.form_class = 'form-horizontal'
-
-        self.helper.layout = Layout(
-            TabHolder(
-                Tab(
-                    'Info',
-                    Field('employee_number', css_class="input-sm", wrapper_class="col-sm-4"),
-                    Field('student_number', css_class="input-sm", wrapper_class="col-sm-4"),
-                    Field('employee_first_name', css_class="input-sm", wrapper_class="col-sm-4"),
-                    Field('employee_last_name', css_class="input-sm", wrapper_class="col-sm-4"),
-                    Field('employee_email', css_class="input-sm", wrapper_class="col-sm-4"),
-                    ),
-            )
-        )
-
 
 class PasswordResetForm(forms.Form):
     email = forms.EmailField(max_length=254)
-    
+
     def send_mail(self, subject_template_name, email_template_name,
                   context, from_email, to_email, html_email_template_name=None):
         """
@@ -65,7 +37,7 @@ class PasswordResetForm(forms.Form):
         if html_email_template_name is not None: html_email = render_to_string(html_email_template_name, context)
 
         SendEmail_Base.Send(to_email, subject, html_email, EMAIL_PROVIDER)
-        
+
     def get_users(self, email):
         """Given an email, return matching user(s) who should receive a reset.
 

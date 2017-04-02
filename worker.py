@@ -1,5 +1,5 @@
 import os
-os.environ.setdefault("DJANGO_SETTINGS_MODULE", "safety.settings")
+os.environ.setdefault("DJANGO_SETTINGS_MODULE", "cnnfgi.settings")
 
 import redis
 from rq import Worker, Queue, Connection

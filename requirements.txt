@@ -1,6 +1,6 @@
 alabaster==0.7.6
-appdirs==1.4.3
 arrow==0.7.0
+appdirs==1.4.3
 Babel==2.1.1
 boto==2.38.0
 click==5.1

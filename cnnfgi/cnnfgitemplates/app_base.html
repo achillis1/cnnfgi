@@ -18,7 +18,7 @@
     <div class="navbar navbar-default">
       <div class="container-fluid">
         <div class="navbar-header">
-          <a href="/" class="navbar-brand">Nexant Safety Dashboard</a>
+          <a href="/" class="navbar-brand">FGI</a>
           <button class="navbar-toggle" type="button" data-toggle="collapse" data-target="#navbar-main">
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
@@ -59,7 +59,7 @@
             <!--</li>-->
           <!--</ul>-->
           {% endblock %}
-        
+
           {% block navbar-right %}
           <ul class="nav navbar-nav navbar-right">
             {% if user.is_staff %}
@@ -153,89 +153,29 @@
             [5, 10, 25, 50, 100, 200, -1],
             [5, 10, 25, 50, 100, 200, "All"]
         ],
-        iDisplayLength: 5,
+        iDisplayLength: 10,
         "order": [[ 0, "desc" ]]
     });
-    
+
     $(document).ready(function() {
         $('.datepicker').datepicker({ dateFormat: 'm/d/yy' });
     });
-    
+
     $(document).ready(function() {
         $('.mytimepicker').timepicker({ 'timeFormat': 'H:i:s' });
     });
-    
+
     $(document).ready(function() {
-        $('.myreadonly').prop("disabled", true); 
+        $('.myreadonly').prop("disabled", true);
     });
-    
+
     $(document).ready(function() {
         $('.myform').on('submit', function() {
             $('.myreadonly').prop('disabled', false);
         });
     });
     </script>
-    
-    <script type="text/javascript">
-      var ps = "{{ project.status }}"
-    </script>
 
-    <script>
-      $(document).ready(function() {
-          // window.alert(ps);
-          // console.log(ps)
-          var active_tab_selector;
-          if (ps == "Requested") {
-            // console.log("in requested")
-            active_tab_selector = $('.nav-tabs > li.active');
-            active_tab_selector.removeClass('active');
-            active_tab_selector.next('li').addClass('active');
-            active_tab_selector.next('li').find('a').trigger('click');
-            $('#request').removeClass('active');
-            $('#schedule').addClass('active');
-          }
-          else if (ps == "Scheduled") {
-            // console.log("in scheduled")
-            active_tab_selector = $('.nav-tabs > li.active');
-            active_tab_selector.removeClass('active');
-            active_tab_selector.next('li').next('li').addClass('active');
-            active_tab_selector.next('li').next('li').find('a').trigger('click');
-            $('#request').removeClass('active');
-            $('#audit').addClass('active');
-          }
-          else if (ps == "Audited") {
-            // console.log("in Audited")
-            active_tab_selector = $('.nav-tabs > li.active');
-            active_tab_selector.removeClass('active');
-            active_tab_selector.next('li').next('li').next('li').addClass('active');
-            active_tab_selector.next('li').next('li').next('li').find('a').trigger('click');
-            $('#requested').removeClass('active');
-            $('#follow-up').addClass('active');
-          }
-          else if (ps == "Complete") {
-            // console.log("in completed")
-            active_tab_selector = $('.nav-tabs > li.active');
-            active_tab_selector.removeClass('active');
-            active_tab_selector.next('li').next('li').next('li').next('li').addClass('active');
-            active_tab_selector.next('li').next('li').next('li').next('li').find('a').trigger('click');
-            $('#requested').removeClass('active');
-            $('#prescriptive-project').addClass('active');
-          }
-          else {
-          }
-        });
-    </script>
-
-    <style type="text/css">
-    .h-divider{
-     margin-top:11px;
-     margin-bottom:20px;
-     height:1px;
-     width:100%;
-     border-top:1px solid gray;
-    }
-    </style>
-    
   </body>
 
 </html>

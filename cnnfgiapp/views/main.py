@@ -26,10 +26,16 @@ if settings.DJANGO_ENV != 'development':
 def index(request):
     current_user = request.user
     try:
-        template_name = 'cnnfgiapp/dead_end.html'
-        return render(request, template_name, {})
+        if request.method == 'GET':
+            context = {
+                'fgis':      Fgi.objects.all(),
+            }
+        template_name = 'cnnfgiapp/fgi/index.html'
+        return render(request, template_name, context)
     except:
+        context = {}
         messages.error(request, 'Unable to direct your request to the right place!')
-        template_name = 'cnnfgiapp/dead_end.html'
-        return render(request, template_name, {})
+
+    template_name = 'cnnfgiapp/fgi/index.html'
+    return render(request, template_name, context)
 

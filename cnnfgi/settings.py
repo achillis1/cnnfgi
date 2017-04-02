@@ -19,21 +19,20 @@ else:
     PROTOCOL = 'http'
 
 ADMINS = (
-    ('David Ashley', 'dashley@nexant.com'),
     ('Ding Li',     'dli@nexant.com'),
 )
 
-if DJANGO_ENV == 'development':
-    STATICFILES_STORAGE = 'storages.backends.s3boto.S3BotoStorage' #need S3 for file_upload function
-    #STATICFILES_STORAGE = 'django.contrib.staticfiles.storage.StaticFilesStorage'
-else:
+# if DJANGO_ENV == 'development':
+    # STATICFILES_STORAGE = 'storages.backends.s3boto.S3BotoStorage' #need S3 for file_upload function
+STATICFILES_STORAGE = 'django.contrib.staticfiles.storage.StaticFilesStorage'
+# else:
     # Always use S3 on staging/production
-    STATICFILES_STORAGE = 'storages.backends.s3boto.S3BotoStorage'
-   
-AWS_ACCESS_KEY_ID = os.environ.get('AWS_ACCESS_KEY_ID')
-AWS_SECRET_ACCESS_KEY = os.environ.get('AWS_SECRET_ACCESS_KEY')
-AWS_STORAGE_BUCKET_NAME = os.environ.get('S3_BUCKET_NAME')
-AWS_PRELOAD_METADATA = True
+    # STATICFILES_STORAGE = 'storages.backends.s3boto.S3BotoStorage'
+
+# AWS_ACCESS_KEY_ID = os.environ.get('AWS_ACCESS_KEY_ID')
+# AWS_SECRET_ACCESS_KEY = os.environ.get('AWS_SECRET_ACCESS_KEY')
+# AWS_STORAGE_BUCKET_NAME = os.environ.get('S3_BUCKET_NAME')
+# AWS_PRELOAD_METADATA = True
 
 # Absolute path to the directory static files should be collected to.
 # Don't put anything in this directory yourself; store your static files
@@ -44,18 +43,19 @@ if DJANGO_ENV == 'development':
     STATIC_ROOT = '%s/staticfiles/' % SITE_ROOT
 else:
     STATIC_ROOT = '%s/staticfiles/' % SITE_ROOT
-   
+
 # URL prefix for static files.
 # Example: "http://media.lawrence.com/static/"
-if DJANGO_ENV == 'development':
+STATIC_URL = '/static/'
+# if DJANGO_ENV == 'development':
     # Use this to at least pull css/js/etc. from local folder when no internet available
-    #STATIC_URL = '/static/'
-   
+# STATIC_URL = '/static/'
+
     #otherwise
-    STATIC_URL = 'http://%s.s3.amazonaws.com/' % AWS_STORAGE_BUCKET_NAME
-else:
-    STATIC_URL = 'http://%s.s3.amazonaws.com/' % AWS_STORAGE_BUCKET_NAME
-   
+    # STATIC_URL = 'http://%s.s3.amazonaws.com/' % AWS_STORAGE_BUCKET_NAME
+# else:
+    # STATIC_URL = 'http://%s.s3.amazonaws.com/' % AWS_STORAGE_BUCKET_NAME
+
 # Additional locations of static files
 STATICFILES_DIRS = (
     # Put strings here, like "/home/html/static" or "C:/www/django/static".
@@ -101,7 +101,7 @@ INSTALLED_APPS = (
     # Uncomment the next line to enable admin documentation:
     # 'django.contrib.admindocs',
     'cnnfgiapp',
-    'storages',
+    # 'storages',
     'django.contrib.humanize',
     'haystack',
     'sphinxdoc',
@@ -133,8 +133,8 @@ EMAIL_API_KEY = os.environ.get('EMAIL_API_KEY')
 
 # Mail configuration
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
-SERVER_EMAIL = 'admin@nexantservicecenter.com'
-DEFAULT_FROM_EMAIL = 'admin@nexantservicecenter.com'
+SERVER_EMAIL = 'dingli@gmail.com'
+DEFAULT_FROM_EMAIL = 'dingli@gmail.com'
 EMAIL_TEMPLATE = os.environ.get('EMAIL_TEMPLATE') or 'sample-template'
 if DJANGO_ENV == 'development':
   EMAIL_HOST = 'smtp.sendgrid.net'
@@ -170,7 +170,7 @@ TEMPLATES = [
                 # 'django.template.loaders.eggs.Loader',
                 )),
             ],
-            
+
         },
     },
 ]

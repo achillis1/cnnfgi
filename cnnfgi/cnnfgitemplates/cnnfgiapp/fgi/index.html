@@ -17,10 +17,10 @@
             <thead>
               <tr>
                 <th>FGI Now</th>
-                <th>FGI Previous Close</th>
-                <th>FGI One Week Ago</th>
-                <th>FGI One Month Ago</th>
-                <th>FGI One Year Ago</th>
+                {# <th>FGI Previous Close</th> #}
+                {# <th>FGI One Week Ago</th> #}
+                {# <th>FGI One Month Ago</th> #}
+                {# <th>FGI One Year Ago</th> #}
                 <th>Updated Timestamp</th>
                 <th>Week Day</th>
               </tr>
@@ -29,10 +29,10 @@
             {% for fgi in fgis %}
                     <tr>
                         <td>{{ fgi.index }}</td>
-                        <td>{{ fgi.previous_close }}</td>
-                        <td>{{ fgi.one_week_ago }}</td>
-                        <td>{{ fgi.one_month_ago }}</td>
-                        <td>{{ fgi.one_year_ago }}</td>
+                        {# <td>{{ fgi.previous_close }}</td> #}
+                        {# <td>{{ fgi.one_week_ago }}</td> #}
+                        {# <td>{{ fgi.one_month_ago }}</td> #}
+                        {# <td>{{ fgi.one_year_ago }}</td> #}
                         <td>{{ fgi.updated }}</td>
                         <td>{{ fgi.week_day }}</td>
                     </tr>

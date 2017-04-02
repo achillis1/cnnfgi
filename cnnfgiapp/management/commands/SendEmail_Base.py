@@ -22,7 +22,7 @@ def Send(to_email,
 
         #construct email and reference sendgrid template name to be used
         sg = sendgrid.SendGridClient(EMAIL_USERNAME, EMAIL_PASSWORD)
-        
+
         message = sendgrid.Mail()
 
         # add required fields to the message
@@ -37,7 +37,7 @@ def Send(to_email,
         if from_email is not None:
             message.set_from(from_email)
         else:
-            message.set_from('Nexant Safety Dashboard <cnnfgi@nexant.com>')
+            message.set_from('FGI Admin <dingli@gmail.com>')
 
         # begin checking for optional fields and set them if they exist
         # initiate error message variables
@@ -68,11 +68,11 @@ def Send(to_email,
 
 
         status, msg = sg.send(message)
-        
+
 
         return status, msg, sg_template_error, sg_substitution_error, att_file_err
 
     else:
         return "There was an error.  Maybe the provider was not valid."
 
-        
+

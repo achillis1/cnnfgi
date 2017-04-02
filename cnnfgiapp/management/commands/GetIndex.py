@@ -1,6 +1,5 @@
 # -*- coding: utf-8 -*-
 import smtplib
-import datetime
 import time
 import codecs
 import os
@@ -20,6 +19,7 @@ from cnnfgiapp.models import Fgi
 from cnnfgiapp.management.commands import SendEmail_Base
 
 from django.utils import timezone
+from datetime import datetime
 
 class Command(BaseCommand):
 
@@ -66,11 +66,19 @@ class Command(BaseCommand):
                     fgi_index.save()
 
                 else:
-                    print('skip this record since it stays the same')
-            except:
-                pass
+                    # print('skip this record since it stays the same')
+                    pass
 
+                to = 'dingli@gmail.com'
+                subject = 'FG Index is ' + str(fgi_now) + ' at ' + datetime.now().strftime('%a, %b %d %Y %H:%M:%S')
+                html_body = ''
+                SendEmail_Base.Send(to, subject, html_body, EMAIL_PROVIDER, None, None, None, None, fgi_now, None, None, None, False, None, None)
+
+            except:
+                # print("try error")
+                pass
         except TimeoutException:
+            # print("except timeout error")
             pass
 
         driver.quit()

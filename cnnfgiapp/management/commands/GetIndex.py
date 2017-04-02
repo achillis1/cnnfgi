@@ -52,15 +52,23 @@ class Command(BaseCommand):
                 if f5!=-1:
                     fgi_one_year_ago = index.get_attribute("innerHTML")[f5+18:f5+18+2]
 
-            fgi_index = Fgi(
-                index=fgi_now,
-                previous_close=fgi_previous_close,
-                one_week_ago=fgi_one_week_ago,
-                one_month_ago=fgi_one_month_ago,
-                one_year_ago=fgi_one_year_ago,
-                week_day=timezone.now().weekday()
-                )
-            fgi_index.save()
+            try:
+                last_fgi = Fgi.objects.latest('updated')
+                if last_fgi.index != fgi_now:
+                    fgi_index = Fgi(
+                        index=fgi_now,
+                        previous_close=fgi_previous_close,
+                        one_week_ago=fgi_one_week_ago,
+                        one_month_ago=fgi_one_month_ago,
+                        one_year_ago=fgi_one_year_ago,
+                        week_day=timezone.now().weekday()
+                        )
+                    fgi_index.save()
+
+                else:
+                    print('skip this record since it stays the same')
+            except:
+                pass
 
         except TimeoutException:
             pass

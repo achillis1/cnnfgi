@@ -69,6 +69,8 @@ class Command(BaseCommand):
                     print('skip this record since it stays the same')
                     pass
 
+                import pdb
+                pdb.set_trace()
                 to = 'dingli@gmail.com'
                 subject = 'FG Index is ' + str(fgi_now) + ' at ' + datetime.now().strftime('%a, %b %d %Y %H:%M:%S')
                 html_body = ''

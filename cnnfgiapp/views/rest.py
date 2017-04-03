@@ -10,11 +10,11 @@ from cnnfgiapp.serializers import FgiSerializer
 def fgi_index(request):
     if request.method == 'GET':
         fgis = Fgi.objects.all()
-        serializer = ProjectSerializer(fgis, many=True)
+        serializer = FgiSerializer(fgis, many=True)
         return Response(serializer.data)
 
     elif request.method == 'POST':
-        serializer = ProjectSerializer(data=request.data)
+        serializer = FgiSerializer(data=request.data)
         if serializer.is_valid():
             serializer.save()
             return Response(serializer.data, status=status.HTTP_201_CREATED)

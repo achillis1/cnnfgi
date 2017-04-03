@@ -16,24 +16,28 @@
           <table class="table table-striped table-bordered table-condensed table-hover" id="mytable">
             <thead>
               <tr>
+                <th>ID</th>
+                <th>Updated Timestamp</th>
                 <th>FGI Now</th>
+
                 {# <th>FGI Previous Close</th> #}
                 {# <th>FGI One Week Ago</th> #}
                 {# <th>FGI One Month Ago</th> #}
                 {# <th>FGI One Year Ago</th> #}
-                <th>Updated Timestamp</th>
+
                 <th>Week Day</th>
               </tr>
             </thead>
             <tbody>
-            {% for fgi in fgis|dictsort:"id" %}
+            {% for fgi in fgis %}
                     <tr>
+                        <td>{{ fgi.id }}</td>
+                        <td>{{ fgi.updated }}</td>
                         <td>{{ fgi.index }}</td>
                         {# <td>{{ fgi.previous_close }}</td> #}
                         {# <td>{{ fgi.one_week_ago }}</td> #}
                         {# <td>{{ fgi.one_month_ago }}</td> #}
                         {# <td>{{ fgi.one_year_ago }}</td> #}
-                        <td>{{ fgi.updated }}</td>
                         <td>{{ fgi.week_day }}</td>
                     </tr>
             {% endfor %}

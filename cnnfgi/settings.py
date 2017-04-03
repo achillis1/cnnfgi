@@ -34,7 +34,7 @@ AWS_SECRET_ACCESS_KEY = os.environ.get('AWS_SECRET_ACCESS_KEY')
 AWS_STORAGE_BUCKET_NAME = os.environ.get('S3_BUCKET_NAME')
 AWS_PRELOAD_METADATA = True
 
-PHANTOMJS_PATH = os.environ.get('LD_LIBRARY_PATH')
+PHANTOMJS_PATH = os.environ.get('PHANTOMJS_PATH')
 
 # Absolute path to the directory static files should be collected to.
 # Don't put anything in this directory yourself; store your static files

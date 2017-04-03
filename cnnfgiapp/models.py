@@ -24,7 +24,7 @@ class Fgi(models.Model):
     one_week_ago = models.CharField(blank=True, max_length=255)
     one_month_ago = models.CharField(blank=True, max_length=255)
     one_year_ago = models.CharField(blank=True, max_length=255)
-    week_day = models.IntegerField(default=0)
+    week_day = models.CharField(blank=True, max_length=255)
 
     def __str__(self):
         return self.index

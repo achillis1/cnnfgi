@@ -68,17 +68,18 @@ class Command(BaseCommand):
                                 one_week_ago=fgi_one_week_ago,
                                 one_month_ago=fgi_one_month_ago,
                                 one_year_ago=fgi_one_year_ago,
-                                week_day=timezone.now().weekday()
+                                week_day=datetime.now().strftime("%a")
                                 )
                             fgi_index.save()
+                            to = 'dingstaging1@gmail.com'
+                            subject = 'FG Index is ' + str(fgi_now) + ' at ' + datetime.now().strftime('%a, %b %d %Y %H:%M:%S')
+                            html_body = ''
+                            SendEmail_Base.Send(to, subject, html_body, EMAIL_PROVIDER, None, None, None, None, fgi_now, None, None, None, False, None, None)
+
 
                         else:
                             print('skip this record since it stays the same')
 
-                        to = 'dingli@gmail.com'
-                        subject = 'FG Index is ' + str(fgi_now) + ' at ' + datetime.now().strftime('%a, %b %d %Y %H:%M:%S')
-                        html_body = ''
-                        SendEmail_Base.Send(to, subject, html_body, EMAIL_PROVIDER, None, None, None, None, fgi_now, None, None, None, False, None, None)
 
                     except:
                         if Fgi.objects.all().count() == 0:

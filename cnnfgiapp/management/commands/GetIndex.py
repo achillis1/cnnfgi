@@ -27,68 +27,75 @@ class Command(BaseCommand):
         pass
 
     def handle(self, *args, **options):
-        phantomjs_path = PHANTOMJS_PATH + "/phantomjs"
-        driver = webdriver.PhantomJS(executable_path=phantomjs_path, service_log_path=os.path.devnull)
-        driver.wait = WebDriverWait(driver, 5)
-        driver.get("http://money.cnn.com/data/fear-and-greed/")
-        try:
-            cr = WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.CSS_SELECTOR, "#needleChart")))
-            indexes = cr.find_elements_by_tag_name("li")
-            for index in indexes:
-                f1 = index.get_attribute("innerHTML").find("Greed Now:")
-                f2 = index.get_attribute("innerHTML").find("Greed Previous Close:")
-                f3 = index.get_attribute("innerHTML").find("Greed 1 Week Ago:")
-                f4 = index.get_attribute("innerHTML").find("Greed 1 Month Ago:")
-                f5 = index.get_attribute("innerHTML").find("Greed 1 Year Ago:")
+        t = datetime.now()
+        hr = t.hour
+        wkday = t.isoweekday()
 
-                if f1!=-1:
-                    fgi_now = index.get_attribute("innerHTML")[f1+11:f1+11+2]
-                if f2!=-1:
-                    fgi_previous_close = index.get_attribute("innerHTML")[f2+22:f2+22+2]
-                if f3!=-1:
-                    fgi_one_week_ago = index.get_attribute("innerHTML")[f3+18:f3+18+2]
-                if f4!=-1:
-                    fgi_one_month_ago = index.get_attribute("innerHTML")[f4+19:f4+19+2]
-                if f5!=-1:
-                    fgi_one_year_ago = index.get_attribute("innerHTML")[f5+18:f5+18+2]
+        if wkday < 6:
+            if hr > 7 and hr < 16:
+                phantomjs_path = PHANTOMJS_PATH + "/phantomjs"
+                driver = webdriver.PhantomJS(executable_path=phantomjs_path, service_log_path=os.path.devnull)
+                driver.wait = WebDriverWait(driver, 5)
+                driver.get("http://money.cnn.com/data/fear-and-greed/")
+                try:
+                    cr = WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.CSS_SELECTOR, "#needleChart")))
+                    indexes = cr.find_elements_by_tag_name("li")
+                    for index in indexes:
+                        f1 = index.get_attribute("innerHTML").find("Greed Now:")
+                        f2 = index.get_attribute("innerHTML").find("Greed Previous Close:")
+                        f3 = index.get_attribute("innerHTML").find("Greed 1 Week Ago:")
+                        f4 = index.get_attribute("innerHTML").find("Greed 1 Month Ago:")
+                        f5 = index.get_attribute("innerHTML").find("Greed 1 Year Ago:")
 
-            try:
-                last_fgi = Fgi.objects.latest('updated')
-                if last_fgi.index != fgi_now:
-                    fgi_index = Fgi(
-                        index=fgi_now,
-                        previous_close=fgi_previous_close,
-                        one_week_ago=fgi_one_week_ago,
-                        one_month_ago=fgi_one_month_ago,
-                        one_year_ago=fgi_one_year_ago,
-                        week_day=timezone.now().weekday()
-                        )
-                    fgi_index.save()
+                        if f1!=-1:
+                            fgi_now = index.get_attribute("innerHTML")[f1+11:f1+11+2]
+                        if f2!=-1:
+                            fgi_previous_close = index.get_attribute("innerHTML")[f2+22:f2+22+2]
+                        if f3!=-1:
+                            fgi_one_week_ago = index.get_attribute("innerHTML")[f3+18:f3+18+2]
+                        if f4!=-1:
+                            fgi_one_month_ago = index.get_attribute("innerHTML")[f4+19:f4+19+2]
+                        if f5!=-1:
+                            fgi_one_year_ago = index.get_attribute("innerHTML")[f5+18:f5+18+2]
 
-                else:
-                    print('skip this record since it stays the same')
+                    try:
+                        last_fgi = Fgi.objects.latest('updated')
+                        if last_fgi.index != fgi_now:
 
-                to = 'dingli@gmail.com'
-                subject = 'FG Index is ' + str(fgi_now) + ' at ' + datetime.now().strftime('%a, %b %d %Y %H:%M:%S')
-                html_body = ''
-                SendEmail_Base.Send(to, subject, html_body, EMAIL_PROVIDER, None, None, None, None, fgi_now, None, None, None, False, None, None)
+                            fgi_index = Fgi(
+                                index=fgi_now,
+                                previous_close=fgi_previous_close,
+                                one_week_ago=fgi_one_week_ago,
+                                one_month_ago=fgi_one_month_ago,
+                                one_year_ago=fgi_one_year_ago,
+                                week_day=timezone.now().weekday()
+                                )
+                            fgi_index.save()
 
-            except:
-                if Fgi.objects.all().count() == 0:
-                    fgi_index = Fgi(
-                        index=fgi_now,
-                        previous_close=fgi_previous_close,
-                        one_week_ago=fgi_one_week_ago,
-                        one_month_ago=fgi_one_month_ago,
-                        one_year_ago=fgi_one_year_ago,
-                        week_day=timezone.now().weekday()
-                        )
-                    fgi_index.save()
-                else:
-                    print("try error")
+                        else:
+                            print('skip this record since it stays the same')
+
+                        to = 'dingli@gmail.com'
+                        subject = 'FG Index is ' + str(fgi_now) + ' at ' + datetime.now().strftime('%a, %b %d %Y %H:%M:%S')
+                        html_body = ''
+                        SendEmail_Base.Send(to, subject, html_body, EMAIL_PROVIDER, None, None, None, None, fgi_now, None, None, None, False, None, None)
+
+                    except:
+                        if Fgi.objects.all().count() == 0:
+                            fgi_index = Fgi(
+                                index=fgi_now,
+                                previous_close=fgi_previous_close,
+                                one_week_ago=fgi_one_week_ago,
+                                one_month_ago=fgi_one_month_ago,
+                                one_year_ago=fgi_one_year_ago,
+                                week_day=timezone.now().weekday()
+                                )
+                            fgi_index.save()
+                        else:
+                            print("try error")
+                            pass
+                except TimeoutException:
+                    print("except timeout error")
                     pass
-        except TimeoutException:
-            print("except timeout error")
-            pass
 
-        driver.quit()
+                driver.quit()

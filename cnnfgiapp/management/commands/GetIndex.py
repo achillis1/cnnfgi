@@ -67,18 +67,26 @@ class Command(BaseCommand):
 
                 else:
                     print('skip this record since it stays the same')
-                    pass
 
-                import pdb
-                pdb.set_trace()
                 to = 'dingli@gmail.com'
                 subject = 'FG Index is ' + str(fgi_now) + ' at ' + datetime.now().strftime('%a, %b %d %Y %H:%M:%S')
                 html_body = ''
                 SendEmail_Base.Send(to, subject, html_body, EMAIL_PROVIDER, None, None, None, None, fgi_now, None, None, None, False, None, None)
 
             except:
-                print("try error")
-                pass
+                if Fgi.objects.all().count() == 0:
+                    fgi_index = Fgi(
+                        index=fgi_now,
+                        previous_close=fgi_previous_close,
+                        one_week_ago=fgi_one_week_ago,
+                        one_month_ago=fgi_one_month_ago,
+                        one_year_ago=fgi_one_year_ago,
+                        week_day=timezone.now().weekday()
+                        )
+                    fgi_index.save()
+                else:
+                    print("try error")
+                    pass
         except TimeoutException:
             print("except timeout error")
             pass

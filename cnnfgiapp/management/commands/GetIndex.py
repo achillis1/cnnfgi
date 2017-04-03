@@ -27,8 +27,6 @@ class Command(BaseCommand):
         pass
 
     def handle(self, *args, **options):
-        import pdb
-        pdb.set_trace()
         phantomjs_path = PHANTOMJS_PATH + "/phantomjs"
         driver = webdriver.PhantomJS(executable_path=phantomjs_path, service_log_path=os.path.devnull)
         driver.wait = WebDriverWait(driver, 5)
@@ -68,7 +66,7 @@ class Command(BaseCommand):
                     fgi_index.save()
 
                 else:
-                    # print('skip this record since it stays the same')
+                    print('skip this record since it stays the same')
                     pass
 
                 to = 'dingli@gmail.com'
@@ -77,10 +75,10 @@ class Command(BaseCommand):
                 SendEmail_Base.Send(to, subject, html_body, EMAIL_PROVIDER, None, None, None, None, fgi_now, None, None, None, False, None, None)
 
             except:
-                # print("try error")
+                print("try error")
                 pass
         except TimeoutException:
-            # print("except timeout error")
+            print("except timeout error")
             pass
 
         driver.quit()

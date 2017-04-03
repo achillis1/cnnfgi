@@ -59,7 +59,7 @@ class Command(BaseCommand):
                             fgi_one_year_ago = index.get_attribute("innerHTML")[f5+18:f5+18+2]
 
                     try:
-                        last_fgi = Fgi.objects.latest('updated')
+                        last_fgi = Fgi.objects.latest('id')
                         if last_fgi.index != fgi_now:
 
                             fgi_index = Fgi(

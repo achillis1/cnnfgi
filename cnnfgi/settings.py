@@ -110,6 +110,7 @@ INSTALLED_APPS = (
     'axes',
     'reversion',
     'crispy_forms',
+    'rest_framework',
 )
 
 MIDDLEWARE_CLASSES = (

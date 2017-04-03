@@ -26,7 +26,7 @@
               </tr>
             </thead>
             <tbody>
-            {% for fgi in fgis|dictsort:"updated" %}
+            {% for fgi in fgis|dictsort:"id" %}
                     <tr>
                         <td>{{ fgi.index }}</td>
                         {# <td>{{ fgi.previous_close }}</td> #}

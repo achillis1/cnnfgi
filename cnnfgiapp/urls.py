@@ -21,5 +21,8 @@ urlpatterns = [
 
     # fgi index
 
+    # api
+    url(r'^api/fgi/$', views.rest.fgi_index, name='api_fgi'),
+
 ]
 
